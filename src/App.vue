@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="app-container">
+    <nav class="navbar">
+      <router-link to="/" class="nav-link">Product List</router-link>
+      <router-link to="/add" class="nav-link">Add Product</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app-container {
+  background-color: #f2f9fc; 
+  padding: 20px;
+}
+
+.navbar {
+  background-color: #6cb2eb; 
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  background-color: #3a9ad9; 
 }
 </style>
