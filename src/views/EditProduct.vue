@@ -34,7 +34,6 @@ export default {
     updateProduct() {
       this.$store.dispatch('updateProduct', this.editedProduct);
       this.$router.push('/');
-
     }
   }
 }

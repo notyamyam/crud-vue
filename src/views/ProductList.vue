@@ -1,19 +1,37 @@
 <template>
-  <div class="product-list">
-    <h2>Product List</h2>
-    <ul>
-      <li v-for="product in products" :key="product.id" class="product-item">
-        <div class="product-info">
-          <h3>{{ product.name }}</h3>
-          <p><strong>Description:</strong> {{ product.description }}</p>
-          <p><strong>Price:</strong> {{ product.price }}</p>
-        </div>
-        <div class="product-actions">
-          <router-link :to="{ name: 'EditProduct', params: { id: product.id }}" class="edit-link">Edit</router-link>
-          <button @click="deleteProduct(product.id)" class="delete-button">Delete</button>
-        </div>
-      </li>
-    </ul>
+  <div class="p-5">
+    <div class="p-4">
+      <h2 class="font-semibold text-3xl">Product List</h2>
+    </div>
+    <div>
+      <ul>
+        <li v-if="products.length === 0" class="text-center w-full">
+          <div class="font-semibold text-gray-400">No products found.</div>
+        </li>
+        <li
+          v-else
+          v-for="product in products"
+          :key="product.id"
+          class="product-item"
+        >
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price:</strong> {{ product.price }}</p>
+          </div>
+          <div class="product-actions">
+            <router-link
+              :to="{ name: 'EditProduct', params: { id: product.id } }"
+              class="edit-link"
+              >Edit</router-link
+            >
+            <button @click="deleteProduct(product.id)" class="delete-button">
+              Delete
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -22,21 +40,17 @@ export default {
   computed: {
     products() {
       return this.$store.state.products;
-    }
+    },
   },
   methods: {
     deleteProduct(productId) {
-      this.$store.commit('deleteProduct', productId);
-    }
-  }
-}
+      this.$store.commit("deleteProduct", productId);
+    },
+  },
+};
 </script>
 
 <style scoped>
-.product-list {
-  margin-top: 20px;
-}
-
 .product-item {
   display: flex;
   justify-content: space-between;
