@@ -60,7 +60,8 @@
                   <div class="flex flex-col space-y-1">
                     <h1 class="text-2xl font-semibold">Edit Product</h1>
                     <h1 class="text-gray-400">
-                      Make changes to this product. Click save when you're done.
+                      Make changes to this product. Click 'Save' when you're
+                      done.
                     </h1>
                   </div>
                   <div>
@@ -154,7 +155,7 @@
               </div>
             </BaseModal>
 
-            <div class="space-x-1">
+            <div class="space-x-1 flex">
               <button @click="startEditing(product)" class="edit-button">
                 <v-icon
                   name="md-modeeditoutline-outlined"
