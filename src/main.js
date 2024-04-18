@@ -1,16 +1,20 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import  store  from './store/index'; // Import the Vuex store
-import './index.css' //tailwind css
+import "./index.css"; //tailwind css
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import * as MdIcons from "oh-vue-icons/icons/md";
 
-<<<<<<< HEAD
+const Md = Object.values({ ...MdIcons });
+addIcons(...Md);
+
+import { createApp } from "vue";
+import App from "./App.vue";
+import store from "./store/index"; // Import the Vuex store
+
+
 createApp(App).mount('#app')
 
-// maramag change
-=======
+
 const app = createApp(App);
 app.use(router);
-app.use(store); // Use the Vuex store
-app.mount('#app');
->>>>>>> lontoc
+app.use(store);
+app.component("v-icon", OhVueIcon); // Use the Vuex store
+app.mount("#app");

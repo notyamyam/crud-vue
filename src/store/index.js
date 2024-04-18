@@ -19,9 +19,11 @@ export default createStore({
       state.products = state.products.filter(p => p.id !== productId);
     },
     setEditedProduct(state, product) {
-      state.editedProduct = product;
+      state.editedProduct = product !== null ? product : {};
     },
+    
   },
+  
   actions: {
     // Actions for interacting with the products
     addProduct({ commit }, newProduct) {
