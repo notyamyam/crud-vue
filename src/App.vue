@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div id="app " class="app-container font-sans">
     <nav class="navbar">
       <router-link to="/" class="nav-link">Product List</router-link>
       <router-link to="/add" class="nav-link">Add Product</router-link>
@@ -17,10 +17,6 @@ export default {
 <style>
 #app {
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.app-container {
-  padding: 20px;
 }
 
 .navbar {
