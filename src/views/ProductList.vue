@@ -1,21 +1,59 @@
 <template>
   <div class="product-list">
-    <h2>Product List</h2>
+    <h2 class="">Product List</h2>
     <ul>
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-info">
           <h3 v-if="editingProduct.id !== product.id">{{ product.name }}</h3>
-          <input type="text" v-model="editedProductName" v-if="editingProduct.id === product.id" required>
-          <p v-if="editingProduct.id !== product.id"><strong>Description:</strong> {{ product.description }}</p>
-          <textarea v-model="editedDescription" v-if="editingProduct.id === product.id" required></textarea>
-          <p v-if="editingProduct.id !== product.id"><strong>Price:</strong> {{ product.price }}</p>
-          <input type="number" v-model.number="editedPrice" v-if="editingProduct.id === product.id" required>
+          <input
+            type="text"
+            v-model="editedProductName"
+            v-if="editingProduct.id === product.id"
+            required
+          />
+          <p v-if="editingProduct.id !== product.id">
+            <strong>Description:</strong> {{ product.description }}
+          </p>
+          <textarea
+            v-model="editedDescription"
+            v-if="editingProduct.id === product.id"
+            required
+          ></textarea>
+          <p v-if="editingProduct.id !== product.id">
+            <strong>Price:</strong> {{ product.price }}
+          </p>
+          <input
+            type="number"
+            v-model.number="editedPrice"
+            v-if="editingProduct.id === product.id"
+            required
+          />
         </div>
         <div class="product-actions">
-          <button v-if="editingProduct.id !== product.id" @click="startEditing(product)" class="edit-button">Edit</button>
-          <button v-if="editingProduct.id === product.id" @click="cancelEditing" class="cancel-button">Cancel</button>
-          <button v-if="editingProduct.id === product.id" @click="saveChanges(product.id)" class="save-button">Save</button>
-          <button @click="deleteProduct(product.id)" class="delete-button">Delete</button>
+          <button
+            v-if="editingProduct.id !== product.id"
+            @click="startEditing(product)"
+            class="edit-button"
+          >
+            Edit
+          </button>
+          <button
+            v-if="editingProduct.id === product.id"
+            @click="cancelEditing"
+            class="cancel-button"
+          >
+            Cancel
+          </button>
+          <button
+            v-if="editingProduct.id === product.id"
+            @click="saveChanges(product.id)"
+            class="save-button"
+          >
+            Save
+          </button>
+          <button @click="deleteProduct(product.id)" class="delete-button">
+            Delete
+          </button>
         </div>
       </li>
     </ul>
@@ -28,23 +66,23 @@ export default {
     return {
       editingProduct: {
         id: null,
-        name: '',
-        description: '',
-        price: 0
+        name: "",
+        description: "",
+        price: 0,
       },
-      editedProductName: '',
-      editedDescription: '',
-      editedPrice: 0
+      editedProductName: "",
+      editedDescription: "",
+      editedPrice: 0,
     };
   },
   computed: {
     products() {
       return this.$store.state.products;
-    }
+    },
   },
   methods: {
     deleteProduct(productId) {
-      this.$store.commit('deleteProduct', productId);
+      this.$store.commit("deleteProduct", productId);
     },
     startEditing(product) {
       this.editingProduct = { ...product };
@@ -53,20 +91,20 @@ export default {
       this.editedPrice = product.price;
     },
     cancelEditing() {
-      this.editingProduct = { id: null, name: '', description: '', price: 0 };
+      this.editingProduct = { id: null, name: "", description: "", price: 0 };
     },
     saveChanges(productId) {
       const updatedProduct = {
         id: productId,
         name: this.editedProductName,
         description: this.editedDescription,
-        price: this.editedPrice
+        price: this.editedPrice,
       };
-      this.$store.commit('updateProduct', updatedProduct);
+      this.$store.commit("updateProduct", updatedProduct);
       this.cancelEditing();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
