@@ -1,14 +1,17 @@
 <template>
   <div class="add-product-modal">
+    <div>
+      <router-link to="/" class="nav-link">Product List</router-link>
+    </div>
     <div class="add-product">
       <h2>Add Product</h2>
       <form @submit.prevent="addProduct" class="product-form">
         <label for="name">Name:</label>
-        <input type="text" id="name" v-model="name" required>
+        <input type="text" id="name" v-model="name" required />
         <label for="description">Description:</label>
         <textarea id="description" v-model="description" required></textarea>
         <label for="price">Price:</label>
-        <input type="number" id="price" v-model.number="price" required>
+        <input type="number" id="price" v-model.number="price" required />
         <button type="submit" class="submit-button">Add Product</button>
       </form>
     </div>
@@ -19,9 +22,9 @@
 export default {
   data() {
     return {
-      name: '',
-      description: '',
-      price: 0
+      name: "",
+      description: "",
+      price: 0,
     };
   },
   methods: {
@@ -30,25 +33,27 @@ export default {
         id: this.getNextProductId(),
         name: this.name,
         description: this.description,
-        price: parseFloat(this.price)
+        price: parseFloat(this.price),
       };
-      this.$store.dispatch('addProduct', newProduct);
+      this.$store.dispatch("addProduct", newProduct);
       this.resetForm();
-      this.$router.push('/');
-
+      this.$router.push("/");
     },
     resetForm() {
-      this.name = '';
-      this.description = '';
+      this.name = "";
+      this.description = "";
       this.price = 0;
     },
     getNextProductId() {
       const products = this.$store.getters.products;
-      const maxId = products.length > 0 ? Math.max(...products.map(product => product.id)) : 0;
+      const maxId =
+        products.length > 0
+          ? Math.max(...products.map((product) => product.id))
+          : 0;
       return maxId + 1;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

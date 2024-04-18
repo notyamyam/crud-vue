@@ -1,9 +1,10 @@
 <template>
-  <div class="product-list">
-    <h2 class="">Product List</h2>
+  <div class="p-9 space-y-9">
+    <h2 class="flex justify-center font-semibold text-2xl">Product List</h2>
+
     <div
       v-if="products.length === 0"
-      class="min-h-screen flex flex-col justify-center items-center text-gray-400"
+      class="flex flex-col justify-center items-center text-gray-400"
     >
       <div class="flex flex-col items-center space-y-2">
         <div>
@@ -20,9 +21,13 @@
           <h6 class="">NO PRODUCTS</h6>
           <h6 class="font-semibold">FOUND</h6>
         </div>
+
+        <div class="bg-blue-500 p-2 rounded-md text-white">
+          <router-link to="/add" class="nav-link">Add Product</router-link>
+        </div>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="">
       <ul>
         <li v-for="product in products" :key="product.id" class="product-item">
           <div class="product-info">
@@ -84,6 +89,15 @@
 </template>
 
 <script>
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 export default {
   data() {
     return {
@@ -96,6 +110,8 @@ export default {
       editedProductName: "",
       editedDescription: "",
       editedPrice: 0,
+
+      showSheet: false,
     };
   },
   computed: {
@@ -131,10 +147,6 @@ export default {
 </script>
 
 <style scoped>
-.product-list {
-  margin-top: 20px;
-}
-
 .product-item {
   display: flex;
   justify-content: space-between;
