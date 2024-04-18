@@ -8,13 +8,10 @@ addIcons(...Md);
 import { createApp } from "vue";
 import App from "./App.vue";
 import store from "./store/index"; // Import the Vuex store
-
-
-createApp(App).mount('#app')
-
+import router from "./router"; // Import the router
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
-app.component("v-icon", OhVueIcon); // Use the Vuex store
+app.component("v-icon", OhVueIcon);
 app.mount("#app");
