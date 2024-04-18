@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
 };
 </script>
 
@@ -20,12 +20,11 @@ export default {
 }
 
 .app-container {
-  background-color: #f2f9fc; 
   padding: 20px;
 }
 
 .navbar {
-  background-color: #6cb2eb; 
+  background-color: #6cb2eb;
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -39,6 +38,6 @@ export default {
 }
 
 .nav-link:hover {
-  background-color: #3a9ad9; 
+  background-color: #3a9ad9;
 }
 </style>
