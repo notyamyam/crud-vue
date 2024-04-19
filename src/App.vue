@@ -1,4 +1,3 @@
-//COMMENT DITO
 
 <template>
   <div id="app " class="app-container font-sans">
