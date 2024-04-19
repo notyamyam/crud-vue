@@ -15,8 +15,11 @@ export default createStore({
         state.products.splice(index, 1, updatedProduct);
       }
     },
-    deleteProduct(state, productId) {
-      state.products = state.products.filter((p) => p.id !== productId);
+    deleteProduct(state, selectedProd) {
+      const newProducts = state.products.filter((p) => p.id != selectedProd.id);
+      state.products = newProducts;
+
+      console.log("===>", newProducts);
     },
     setEditedProduct(state, product) {
       state.editedProduct = product !== null ? product : {};

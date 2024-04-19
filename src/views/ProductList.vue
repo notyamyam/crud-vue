@@ -1,5 +1,5 @@
 <template>
-  <div class="p-9 space-y-9">
+  <div class="p-4 space-y-9">
     <div
       v-if="products.length === 0"
       class="flex flex-col justify-center items-center text-gray-400"
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="px-96 space-y-9">
+    <div v-else class="px-52 space-y-9">
       <div class="flex justify-between">
         <div>
           <h1 class="text-3xl font-semibold">Products</h1>
@@ -35,22 +35,24 @@
         </div>
       </div>
       <ul>
-        <transition-group tag="ul" name="list">
+        <transition-group name="list">
           <li
             v-for="product in products"
             :key="product.id"
             class="flex justify-between items-start p-3 border-b border-gray-300"
           >
-            <div>
-              <div class="flex text-2xl font-medium">
-                <h2 class="me-2">{{ product.name }}</h2>
-                <h2 class="text-gray-400">₱ {{ product.price }}</h2>
-              </div>
+            <transition name="slide-fade" mode="out-in">
+              <div :key="product.updatedAt">
+                <div class="flex text-2xl font-medium">
+                  <h2 class="me-2">{{ product.name }}</h2>
+                  <h2 class="text-gray-400">₱ {{ product.price }}</h2>
+                </div>
 
-              <div>
-                <h6 class="text-gray-800">{{ product.description }}</h6>
+                <div>
+                  <h6 class="text-gray-800">{{ product.description }}</h6>
+                </div>
               </div>
-            </div>
+            </transition>
             <div class="flex justify-center">
               <form
                 @submit.prevent="saveChanges(product.id)"
@@ -150,7 +152,7 @@
                       <button @click="closeDeleteModal">No</button>
                       <button
                         class="bg-red-500 hover:bg-red-600 text-white font-normal py-2 px-4 rounded"
-                        @click="deleteProduct(product.id)"
+                        @click="deleteProduct()"
                       >
                         Yes
                       </button>
@@ -171,7 +173,7 @@
                   ></v-icon>
                 </button>
 
-                <button class="" @click="openDeleteModal()">
+                <button class="" @click="openDeleteModal(product)">
                   <v-icon
                     name="md-deleteoutline-outlined"
                     scale="2"
@@ -193,6 +195,7 @@ import BaseModal from "../components/BaseModal.vue";
 export default {
   data() {
     return {
+      selectedProd: {},
       editingProduct: {
         id: null,
         name: "",
@@ -217,10 +220,10 @@ export default {
     },
   },
   methods: {
-    deleteProduct(productId) {
-      console.log("Deleting product with ID:", productId);
+    deleteProduct() {
+      console.log("Deleting product with ID:", this.selectedProd);
 
-      this.$store.commit("deleteProduct", productId);
+      this.$store.commit("deleteProduct", this.selectedProd);
       this.isDeleteModalOpen = false;
     },
 
@@ -238,6 +241,7 @@ export default {
         name: this.editedProductName,
         description: this.editedDescription,
         price: this.editedPrice,
+        updatedAt: Date.now(), // Update the updatedAt property
       };
       this.$store.commit("updateProduct", updatedProduct);
       this.cancelEditing();
@@ -250,8 +254,13 @@ export default {
       }
     },
 
-    openDeleteModal() {
+    openDeleteModal(product) {
+      this.selectedProd = product;
       this.isDeleteModalOpen = true;
+    },
+
+    closeDeleteModal() {
+      this.isDeleteModalOpen = false;
     },
 
     toggleElementVisibility() {
@@ -262,17 +271,20 @@ export default {
 </script>
 
 <style scoped>
-.list-enter-from {
+.list-enter-active,
+.list-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.slide-fade-enter-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.slide-fade-leave-active {
+  transition: opacity 0.8s cubic-bezier(1, 0.5, 0.8, 1),
+    transform 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
-}
-
-.list-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.list-enter-active {
-  transition: all 0.5s ease;
 }
 </style>
