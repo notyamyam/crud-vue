@@ -271,6 +271,7 @@ export default {
 </script>
 
 <style scoped>
+/*DELETE*/
 .list-enter-active {
   opacity: 0;
   transform: translateY(100px);
@@ -281,6 +282,8 @@ export default {
   transform: translateY(-100px);
   transition: all 0.3s ease-in-out;
 }
+
+/*UPDATE*/
 .slide-fade-enter-active {
   transition: opacity 0.3s, transform 0.3s;
 }
@@ -290,7 +293,10 @@ export default {
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
+  /* opacity: 0;
+  transform: translateX(100px) scale(0.1); */
+
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateX(100px);
 }
 </style>
