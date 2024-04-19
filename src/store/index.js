@@ -18,6 +18,8 @@ export default createStore({
     deleteProduct(state, selectedProd) {
       const newProducts = state.products.filter((p) => p.id != selectedProd.id);
       state.products = newProducts;
+
+      console.log("===>", newProducts);
     },
     setEditedProduct(state, product) {
       state.editedProduct = product !== null ? product : {};
@@ -32,7 +34,9 @@ export default createStore({
     updateProduct({ commit }, updatedProduct) {
       commit("updateProduct", updatedProduct);
     },
-
+    deleteProduct({ commit }, productId) {
+      commit("deleteProduct", productId);
+    },
     setEditedProduct({ commit }, product) {
       commit("setEditedProduct", product);
     },
