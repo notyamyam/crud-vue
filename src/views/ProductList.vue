@@ -132,7 +132,33 @@
                   </div>
                 </BaseModal>
               </form>
+              <BaseModal :visible="isDeleteModalOpen">
+                <div class="flex flex-col justify-center space-y-8 p-5">
+                  <div class="flex flex-col">
+                    <h6 class="text-2xl font-semibold">Delete</h6>
+                    <h6 class="text-gray-400">
+                      Click 'Yes' if you want to delete the product.
+                    </h6>
+                  </div>
+                  <div class="flex flex-col">
+                    <div>
+                      <h6 class="text-lg font-medium">
+                        Are you sure you want to delete this product?
+                      </h6>
+                    </div>
 
+                    <div class="flex justify-end space-x-5 mt-4">
+                      <button @click="closeDeleteModal">No</button>
+                      <button
+                        class="bg-red-500 hover:bg-red-600 text-white font-normal py-2 px-4 rounded"
+                        @click="deleteProduct()"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </BaseModal>
               <div class="space-x-1 flex">
                 <button
                   v-if="!isEditModalOpen || editingProduct.id !== product.id"
@@ -141,6 +167,13 @@
                 >
                   <v-icon
                     name="md-modeeditoutline-outlined"
+                    scale="2"
+                    class="text-gray-500 hover:bg-gray-200 rounded-md p-2"
+                  ></v-icon>
+                </button>
+                <button class="" @click="openDeleteModal(product)">
+                  <v-icon
+                    name="md-deleteoutline-outlined"
                     scale="2"
                     class="text-gray-500 hover:bg-gray-200 rounded-md p-2"
                   ></v-icon>
@@ -171,7 +204,7 @@ export default {
       editedProductName: "",
       editedDescription: "",
       editedPrice: 0,
-
+      isDeleteModalOpen: false,
       show: false,
     };
   },
@@ -185,6 +218,11 @@ export default {
     },
   },
   methods: {
+    deleteProduct() {
+
+      this.$store.commit("deleteProduct", this.selectedProd);
+      this.isDeleteModalOpen = false;
+    },
     startEditing(product) {
       product.isEditModalOpen = true;
       this.editingProduct = { ...product, isEditModalOpen: true }; // Set isEditModalOpen to true for the edited product
@@ -211,7 +249,15 @@ export default {
         this.editingProduct.isEditModalOpen = false;
       }
     },
+    //Delete
+    openDeleteModal(product) {
+      this.selectedProd = product;
+      this.isDeleteModalOpen = true;
+    },
 
+    closeDeleteModal() {
+      this.isDeleteModalOpen = false;
+    },
     toggleElementVisibility() {
       this.show = !this.show; // Toggle the value of show
     },
