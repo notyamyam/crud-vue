@@ -20,9 +20,7 @@
           <h6 class="font-semibold">FOUND</h6>
         </div>
 
-        <div class="bg-blue-500 p-2 rounded-md text-white">
-          <router-link to="/add" class="nav-link">Add Product</router-link>
-        </div>
+     
       </div>
     </div>
     <div v-else class="px-52 space-y-9">
@@ -30,9 +28,7 @@
         <div>
           <h1 class="text-3xl font-semibold">Products</h1>
         </div>
-        <div class="bg-blue-500 p-2 rounded-md text-white">
-          <router-link to="/add" class="nav-link">Add Product</router-link>
-        </div>
+        
       </div>
       <ul>
         <transition-group name="list">
