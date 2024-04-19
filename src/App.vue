@@ -1,8 +1,8 @@
+//COMMENT DITO
+
 <template>
   <div id="app " class="app-container font-sans">
-    <nav class="navbar">
-      
-    </nav>
+    <nav class="navbar"></nav>
     <router-view v-slot="{ Component }">
       <transition name="route" mode="out-in">
         <component :is="Component"></component>
@@ -23,7 +23,7 @@ export default {
   transform: translateX(100px);
 }
 
-.route-enter-active{
+.route-enter-active {
   transition: ass 0.3s ease-out;
 }
 
@@ -32,7 +32,7 @@ export default {
   transform: translateX(-100px);
 }
 
-.route-leave-active{
+.route-leave-active {
   transition: all 0.3s ease-in;
 }
 </style>
