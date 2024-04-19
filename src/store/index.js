@@ -32,9 +32,7 @@ export default createStore({
     updateProduct({ commit }, updatedProduct) {
       commit("updateProduct", updatedProduct);
     },
-    deleteProduct({ commit }, productId) {
-      commit("deleteProduct", productId);
-    },
+
     setEditedProduct({ commit }, product) {
       commit("setEditedProduct", product);
     },
