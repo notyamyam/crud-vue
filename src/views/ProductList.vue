@@ -20,9 +20,7 @@
           <h6 class="font-semibold">FOUND</h6>
         </div>
 
-        <div class="bg-blue-500 p-2 rounded-md text-white">
-          <router-link to="/add" class="nav-link">Add Product</router-link>
-        </div>
+     
       </div>
     </div>
     <div v-else class="px-52 space-y-9">
@@ -30,9 +28,7 @@
         <div>
           <h1 class="text-3xl font-semibold">Products</h1>
         </div>
-        <div class="bg-blue-500 p-2 rounded-md text-white">
-          <router-link to="/add" class="nav-link">Add Product</router-link>
-        </div>
+        
       </div>
       <ul>
         <transition-group name="list">
@@ -132,7 +128,6 @@
                   </div>
                 </BaseModal>
               </form>
-
               <BaseModal :visible="isDeleteModalOpen">
                 <div class="flex flex-col justify-center space-y-8 p-5">
                   <div class="flex flex-col">
@@ -172,7 +167,6 @@
                     class="text-gray-500 hover:bg-gray-200 rounded-md p-2"
                   ></v-icon>
                 </button>
-
                 <button class="" @click="openDeleteModal(product)">
                   <v-icon
                     name="md-deleteoutline-outlined"
@@ -221,12 +215,10 @@ export default {
   },
   methods: {
     deleteProduct() {
-      console.log("Deleting product with ID:", this.selectedProd);
 
       this.$store.commit("deleteProduct", this.selectedProd);
       this.isDeleteModalOpen = false;
     },
-
     startEditing(product) {
       product.isEditModalOpen = true;
       this.editingProduct = { ...product, isEditModalOpen: true }; // Set isEditModalOpen to true for the edited product
@@ -253,7 +245,6 @@ export default {
         this.editingProduct.isEditModalOpen = false;
       }
     },
-
     openDeleteModal(product) {
       this.selectedProd = product;
       this.isDeleteModalOpen = true;
@@ -262,7 +253,6 @@ export default {
     closeDeleteModal() {
       this.isDeleteModalOpen = false;
     },
-
     toggleElementVisibility() {
       this.show = !this.show; // Toggle the value of show
     },
