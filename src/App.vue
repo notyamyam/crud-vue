@@ -1,4 +1,3 @@
-
 <template>
   <div id="app " class="app-container font-sans">
     <nav class="navbar"></nav>
