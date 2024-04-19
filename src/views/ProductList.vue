@@ -19,6 +19,7 @@
           <h6 class="">NO PRODUCTS</h6>
           <h6 class="font-semibold">FOUND</h6>
         </div>
+
         <div class="bg-blue-500 p-2 rounded-md text-white">
           <router-link to="/add" class="nav-link">Add Product</router-link>
         </div>
@@ -29,7 +30,6 @@
         <div>
           <h1 class="text-3xl font-semibold">Products</h1>
         </div>
-
         <div class="bg-blue-500 p-2 rounded-md text-white">
           <router-link to="/add" class="nav-link">Add Product</router-link>
         </div>
@@ -41,16 +41,18 @@
             :key="product.id"
             class="flex justify-between items-start p-3 border-b border-gray-300"
           >
-            <div :key="product.updatedAt">
-              <div class="flex text-2xl font-medium">
-                <h2 class="me-2">{{ product.name }}</h2>
-                <h2 class="text-gray-400">₱ {{ product.price }}</h2>
-              </div>
+            <transition name="slide-fade" mode="out-in">
+              <div :key="product.updatedAt">
+                <div class="flex text-2xl font-medium">
+                  <h2 class="me-2">{{ product.name }}</h2>
+                  <h2 class="text-gray-400">₱ {{ product.price }}</h2>
+                </div>
 
-              <div>
-                <h6 class="text-gray-800">{{ product.description }}</h6>
+                <div>
+                  <h6 class="text-gray-800">{{ product.description }}</h6>
+                </div>
               </div>
-            </div>
+            </transition>
             <div class="flex justify-center">
               <form
                 @submit.prevent="saveChanges(product.id)"
@@ -68,7 +70,7 @@
                     <div>
                       <label
                         for="name"
-                        class="block mb-2 text-sm font-medium text-black dark:text-white bg-"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bg-"
                         >Name</label
                       >
                       <input
@@ -85,7 +87,7 @@
                     <div>
                       <label
                         for="description"
-                        class="block mb-2 text-sm font-medium text-black dark:text-white bg-"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bg-"
                         >Description</label
                       >
                       <textarea
@@ -101,7 +103,7 @@
                     <div>
                       <label
                         for="price"
-                        class="block mb-2 text-sm font-medium text-black dark:text-white bg-"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bg-"
                         >Price (₱)</label
                       >
                       <input
