@@ -35,16 +35,18 @@
         </div>
       </div>
       <ul>
-        <li
-          v-for="product in products"
-          :key="product.id"
-          class="flex justify-between items-start p-3 border-b border-gray-300"
-        >
-          <div>
-            <div class="flex text-2xl font-medium">
-              <h2 class="me-2">{{ product.name }}</h2>
-              <h2 class="text-gray-400">₱ {{ product.price }}</h2>
-            </div>
+        <transition-group name="list">
+          <li
+            v-for="product in products"
+            :key="product.id"
+            class="flex justify-between items-start p-3 border-b border-gray-300"
+          >
+            <transition name="slide-fade" mode="out-in">
+              <div :key="product.updatedAt">
+                <div class="flex text-2xl font-medium">
+                  <h2 class="me-2">{{ product.name }}</h2>
+                  <h2 class="text-gray-400">₱ {{ product.price }}</h2>
+                </div>
 
                 <div>
                   <h6 class="text-gray-800">{{ product.description }}</h6>
@@ -131,6 +133,33 @@
                 </BaseModal>
               </form>
 
+              <BaseModal :visible="isDeleteModalOpen">
+                <div class="flex flex-col justify-center space-y-8 p-5">
+                  <div class="flex flex-col">
+                    <h6 class="text-2xl font-semibold">Delete</h6>
+                    <h6 class="text-gray-400">
+                      Click 'Yes' if you want to delete the product.
+                    </h6>
+                  </div>
+                  <div class="flex flex-col">
+                    <div>
+                      <h6 class="text-lg font-medium">
+                        Are you sure you want to delete this product?
+                      </h6>
+                    </div>
+
+                    <div class="flex justify-end space-x-5 mt-4">
+                      <button @click="closeDeleteModal">No</button>
+                      <button
+                        class="bg-red-500 hover:bg-red-600 text-white font-normal py-2 px-4 rounded"
+                        @click="deleteProduct()"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </BaseModal>
               <div class="space-x-1 flex">
                 <button
                   v-if="!isEditModalOpen || editingProduct.id !== product.id"
@@ -139,6 +168,14 @@
                 >
                   <v-icon
                     name="md-modeeditoutline-outlined"
+                    scale="2"
+                    class="text-gray-500 hover:bg-gray-200 rounded-md p-2"
+                  ></v-icon>
+                </button>
+
+                <button class="" @click="openDeleteModal(product)">
+                  <v-icon
+                    name="md-deleteoutline-outlined"
                     scale="2"
                     class="text-gray-500 hover:bg-gray-200 rounded-md p-2"
                   ></v-icon>
@@ -169,7 +206,7 @@ export default {
       editedProductName: "",
       editedDescription: "",
       editedPrice: 0,
-
+      isDeleteModalOpen: false,
       show: false,
     };
   },
@@ -183,6 +220,13 @@ export default {
     },
   },
   methods: {
+    deleteProduct() {
+      console.log("Deleting product with ID:", this.selectedProd);
+
+      this.$store.commit("deleteProduct", this.selectedProd);
+      this.isDeleteModalOpen = false;
+    },
+
     startEditing(product) {
       product.isEditModalOpen = true;
       this.editingProduct = { ...product, isEditModalOpen: true }; // Set isEditModalOpen to true for the edited product
@@ -208,6 +252,15 @@ export default {
       if (this.editingProduct.isEditModalOpen) {
         this.editingProduct.isEditModalOpen = false;
       }
+    },
+
+    openDeleteModal(product) {
+      this.selectedProd = product;
+      this.isDeleteModalOpen = true;
+    },
+
+    closeDeleteModal() {
+      this.isDeleteModalOpen = false;
     },
 
     toggleElementVisibility() {
@@ -239,61 +292,5 @@ export default {
 .slide-fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
-}
-</style>
-
-<style scoped>
-.list-enter-active {
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all 0.3s ease-in-out;
-}
-.list-leave-active {
-  opacity: 0;
-  transform: translateY(-100px);
-  transition: all 0.3s ease-in-out;
-}
-.slide-fade-enter-active {
-  transition: opacity 0.3s, transform 0.3s;
-}
-.slide-fade-leave-active {
-  transition: opacity 0.8s cubic-bezier(1, 0.5, 0.8, 1),
-    transform 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-</style>
-
-<style scoped>
-/* animation for adding of products */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-/* animation for editing products */
-.fade-edit-modal-enter-active,
-.fade-edit-modal-leave-active {
-  transition: opacity 0.3s;
-}
-
-.fade-edit-modal-enter, .fade-edit-modal-leave-to /* .fade-edit-modal-leave-active in <2.1.8 */ {
-  opacity: 0;
-}
-
-/* animation for deleting products */
-.fade-delete-modal-enter-active,
-.fade-delete-modal-leave-active {
-  transition: opacity 0.3s;
-}
-
-.fade-delete-modal-enter, .fade-delete-modal-leave-to /* .fade-delete-modal-leave-active in <2.1.8 */ {
-  opacity: 0;
 }
 </style>
