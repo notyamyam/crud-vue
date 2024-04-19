@@ -271,9 +271,15 @@ export default {
 </script>
 
 <style scoped>
-.list-enter-active,
+.list-enter-active {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.3s ease-in-out;
+}
 .list-leave-active {
-  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.3s ease-in-out;
 }
 .slide-fade-enter-active {
   transition: opacity 0.3s, transform 0.3s;
