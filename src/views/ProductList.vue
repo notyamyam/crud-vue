@@ -249,7 +249,6 @@ export default {
         this.editingProduct.isEditModalOpen = false;
       }
     },
-    //Delete
     openDeleteModal(product) {
       this.selectedProd = product;
       this.isDeleteModalOpen = true;
