@@ -29,7 +29,6 @@
         <div>
           <h1 class="text-3xl font-semibold">Products</h1>
         </div>
-        
       </div>
       <ul>
         <transition-group name="list">
@@ -260,9 +259,6 @@ export default {
       this.isDeleteModalOpen = false;
     },
 
-    closeDeleteModal() {
-      this.isDeleteModalOpen = false;
-    },
     toggleElementVisibility() {
       this.show = !this.show; // Toggle the value of show
     },
